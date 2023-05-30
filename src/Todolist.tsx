@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-type filterValueType = 'all' | 'active' | 'completed';
+type FilterValueType = 'all' | 'active' | 'completed';
 
 type PropsType = {
     title: string;
@@ -14,9 +14,9 @@ type TaskType = {
     isDone: boolean;
 }
 export const Todolist = (props: PropsType) => {
-    const [filterValue, setFilterValue] = useState('all');
+    const [filterValue, setFilterValue] = useState<FilterValueType>('all');
 
-    const filterTasks = (fValue: filterValueType) => {
+    const filterTasks = (fValue: FilterValueType) => {
         setFilterValue(fValue);
     }
 
