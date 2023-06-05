@@ -1,27 +1,27 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Todolist} from "./Todolist";
+import {TaskType, Todolist} from "./Todolist";
+import {v1} from 'uuid';
 
 
 function App() {
 
     const title = 'What to learn1';
 
-    // let tasks = [
-    //     { id: 1, title: "HTML&CSS", isDone: true },
-    //     { id: 2, title: "JS", isDone: true },
-    //     { id: 3, title: "ReactJS", isDone: false }
-    // ]
-
-    let [tasks, setTasks] = useState([
-        { id: 1, title: "HTML&CSS", isDone: true },
-        { id: 2, title: "JS", isDone: true },
-        { id: 3, title: "ReactJS", isDone: false }
+    let [tasks, setTasks] = useState<Array<TaskType>>([
+        { id: v1(), title: "HTML&CSS", isDone: true },
+        { id: v1(), title: "JS", isDone: true },
+        { id: v1(), title: "ReactJS", isDone: false }
     ])
 
 
-    const removeTask = (id: number) => {
+    const removeTask = (id: string) => {
         setTasks(tasks.filter(el => el.id !== id));
+    }
+
+    const addTask = (title: string) => {
+        let newTask = { id: v1(), title: title, isDone: false };
+        setTasks([newTask, ...tasks]);
     }
 
 
@@ -31,6 +31,7 @@ function App() {
                title={title}
                tasks={tasks}
                onClickHandler={removeTask}
+               addTask={addTask}
                           />
 
         </div>
