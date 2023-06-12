@@ -1,0 +1,32 @@
+input {
+    outline: none;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputBlock {
+    display: flex;
+}
+
+.inputBlock button {
+    display: flex;
+}
+
+.activeButton {
+    background: aquamarine;
+}
+
+.inputError {
+    border: 1px solid red;
+}
+
+.error {
+    color: red;
+}
+
+.doneTask {
+    opacity: 50%;
+}

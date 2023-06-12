@@ -24,6 +24,11 @@ function App() {
         setTasks([newTask, ...tasks]);
     }
 
+    const checkboxToggle = (id: string, isDone: boolean) => {
+        setTasks(tasks.map(el => el.id === id ? {...el, isDone: isDone} : el));
+
+    }
+
 
     return (
         <div className="App">
@@ -32,6 +37,7 @@ function App() {
                tasks={tasks}
                onClickHandler={removeTask}
                addTask={addTask}
+               checkboxToggle={checkboxToggle}
                           />
 
         </div>
