@@ -3,7 +3,7 @@ import {Button} from './components/Button';
 import s from './Todolist.module.css';
 import {Input} from './components/Input';
 
-type FilterValueType = 'all' | 'active' | 'completed';
+export type FilterValueType = 'all' | 'active' | 'completed';
 
 type PropsType = {
     title: string;
@@ -115,12 +115,17 @@ export const Todolist = (props: PropsType) => {
                 <Button
                     title='all'
                     callBack={() => changeFilterHandler('all')}
-                    className={filterValue === 'all' ? 's.activeButton' : ''}/>
+                    filterValue={filterValue}
+                    />
                 <Button
                     title='active'
                     callBack={() => changeFilterHandler('active')}
-                    className={filterValue === 'active' ? 's.activeButton' : ''}/>
-                <Button title='completed' callBack={() => changeFilterHandler('completed')} />
+                    filterValue={filterValue}
+                    />
+                <Button
+                    title='completed'
+                    callBack={() => changeFilterHandler('completed')}
+                    filterValue={filterValue}/>
             </div>
         </div>
     )
