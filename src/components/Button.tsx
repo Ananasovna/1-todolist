@@ -1,11 +1,11 @@
 import React from 'react';
 import s from './Button.module.css';
-import {FilterValueType} from "../Todolist";
+import {FilterValuesType} from "../App";
 
 type ButtonPropsType = {
     title: string,
     callBack: () => void,
-    filterValue?: FilterValueType,
+    filterValue?: FilterValuesType,
 
 }
 
