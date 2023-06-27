@@ -45,3 +45,11 @@
   border: 2px solid red;
   outline: none;
 }
+
+.addForm {
+  height: 100%;
+  border: 1px solid green;
+  border-radius: 3px;
+  background-color: yellowgreen;
+  padding: 20px;
+}
