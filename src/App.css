@@ -1,6 +1,6 @@
 .App {
-  padding: 30px;
   display: flex;
+  flex-direction: column;
 }
 
 .App > div {
@@ -13,16 +13,25 @@
   padding: 20px;
 }
 .tasks-list {
+
   list-style: none;
   padding: 0;
 }
 .tasks-list-item {
+
   display: flex;
   justify-content: space-between;
 }
+
+.taskInfo {
+  display: flex;
+  align-items: center;
+}
+
 .buttons-block {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 }
 .todolist-header {
   text-align: center;
@@ -47,7 +56,7 @@
 }
 
 .addForm {
-  height: 100%;
+  min-height: fit-content;
   border: 1px solid green;
   border-radius: 3px;
   background-color: yellowgreen;

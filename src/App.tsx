@@ -3,6 +3,18 @@ import './App.css';
 import TodoList, {TaskType} from "./TodoList";
 import {v1} from "uuid";
 import {AddItemForm} from "./components/AddItemForm";
+import {
+    AppBar,
+    Button,
+    CardHeader,
+    Container, createTheme, CssBaseline,
+    Grid,
+    IconButton,
+    Paper,
+    ThemeProvider,
+    Toolbar,
+    Typography
+} from "@mui/material";
 
 export type FilterValuesType = "all" | "active" | "completed"
 
@@ -37,6 +49,7 @@ function App(): JSX.Element {
             {id: v1(), title: "Water", isDone: false},
         ]
     })
+    const [isLightMode, setIsLightMode] = useState(true);
 
     const changeTodoListFilter = (nextFilterValue: FilterValuesType, todoListId: string) => {
         const updatedTodoLists: Array<TodoListType>
@@ -136,30 +149,82 @@ function App(): JSX.Element {
     const todoListsComponents: Array<JSX.Element> = todoLists.map((tl) => {
         const filteredTasks: Array<TaskType> = getFilteredTasks(tasks[tl.id], tl.filter)
         return (
-            <TodoList
-                key={tl.id}
-                todoListId={tl.id}
-                title={tl.title}
-                filter={tl.filter}
-                tasks={filteredTasks}
-                addTask={addTask}
-                removeTask={removeTask}
-                removeTodoList={removeTodoList}
-                changeFilter={changeTodoListFilter}
-                changeTaskStatus={changeTaskStatus}
-                changeTaskTitle={changeTaskTitle}
-                changeTodoListTitle={changeTodoListTitle}
-            />
+            <Grid item key={tl.id}>
+                <Paper elevation={4} >
+                    <TodoList
+                        key={tl.id}
+                        todoListId={tl.id}
+                        title={tl.title}
+                        filter={tl.filter}
+                        tasks={filteredTasks}
+                        addTask={addTask}
+                        removeTask={removeTask}
+                        removeTodoList={removeTodoList}
+                        changeFilter={changeTodoListFilter}
+                        changeTaskStatus={changeTaskStatus}
+                        changeTaskTitle={changeTaskTitle}
+                        changeTodoListTitle={changeTodoListTitle}
+                    />
+                </Paper>
+
+            </Grid>
         )
     } )
 
+    const mode = isLightMode ? 'light' : 'dark';
+
+    const customTheme = createTheme({
+        palette: {
+            primary: {
+                main: '#33a095'
+            },
+            secondary: {
+                main: '#005f56'
+            },
+            mode: mode,
+
+}
+    })
+
     return (
-        <div className="App">
-            <div className={'addForm'}>
-                <AddItemForm maxItemTitleLength={maxTaskTitleLength} addItemHandler={addTodoList}/>
+        <ThemeProvider theme={customTheme}>
+            <CssBaseline />
+            <div className="App">
+                <AppBar position='static'>
+                    <Toolbar>
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{mr: 2}}
+                        >
+                            menu
+                        </IconButton>
+                        <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                            TodoLists
+                        </Typography>
+                        <Button onClick={()=> setIsLightMode(!isLightMode)} color={'inherit'} variant='outlined'>{`${mode} theme`}</Button>
+                    </Toolbar>
+                </AppBar>
+                <Container>
+                    <Grid container sx={{p: '15px 0'}}>
+                        <Paper elevation={2}>
+                            <div className={'addForm'}>
+                                <AddItemForm maxItemTitleLength={maxTaskTitleLength} addItemHandler={addTodoList}/>
+                            </div>
+                        </Paper>
+
+
+                    </Grid>
+                    <Grid container spacing={2}>
+                        {todoListsComponents}
+                    </Grid>
+                </Container>
+
             </div>
-            {todoListsComponents}
-        </div>
+
+        </ThemeProvider>
     );
 }
 

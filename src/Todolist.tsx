@@ -1,11 +1,9 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import {FilterValuesType} from "./App";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
-import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import {AddItemForm} from "./components/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan";
+import {Button, Checkbox, IconButton} from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 type TodoListPropsType = {
     todoListId: string
@@ -39,19 +37,20 @@ const TodoList: FC<TodoListPropsType> = (props) => {
                         props.changeTaskStatus(task.id, e.currentTarget.checked, props.todoListId)
                     return (
                         <li key={task.id} className={"tasks-list-item"}>
-                            <div>
-                                <input
-                                    type="checkbox"
+                            <div className={'taskInfo'}>
+                               <Checkbox
+                                    size={'small'}
                                     checked={task.isDone}
-                                    onChange={changeTaskStatus}
-                                />
+                                    onChange={changeTaskStatus}></Checkbox>
                                 <EditableSpan
                                     startTitle={task.title}
                                     className={task.isDone ? "task-done" : "task"}
                                     changeTitle={(title) => props.changeTaskTitle(task.id, title, props.todoListId)}
                                 />
                             </div>
-                            <button onClick={removeTask}>x</button>
+                            <IconButton onClick={removeTask}>
+                                <DeleteForeverIcon></DeleteForeverIcon>
+                            </IconButton>
                         </li>
                     )
                 })
@@ -69,18 +68,24 @@ const TodoList: FC<TodoListPropsType> = (props) => {
                         <AddItemForm maxItemTitleLength={maxTaskTitleLength} addItemHandler={(title: string) => addTask(title)}/>
             {tasksList}
             <div className={"buttons-block"}>
-                <button
-                    className={props.filter === "all" ? "btn-filter-active" : undefined}
+                <Button
+                    size={'small'}
+                    variant={'contained'}
+                    color={props.filter === "all" ? "secondary" : 'primary'}
                     onClick={() => props.changeFilter("all", props.todoListId)}>All
-                </button>
-                <button
-                    className={props.filter === "active" ? "btn-filter-active" : undefined}
+                </Button>
+                <Button
+                    size={'small'}
+                    variant={'contained'}
+                    color={props.filter === "active" ? "secondary" : 'primary'}
                     onClick={() => props.changeFilter("active", props.todoListId)}>Active
-                </button>
-                <button
-                    className={props.filter === "completed" ? "btn-filter-active" : undefined}
+                </Button>
+                <Button
+                    size={'small'}
+                    variant={'contained'}
+                    color={props.filter === "completed" ? "secondary" : 'primary'}
                     onClick={() => props.changeFilter("completed", props.todoListId)}>Completed
-                </button>
+                </Button>
             </div>
         </div>
     );
